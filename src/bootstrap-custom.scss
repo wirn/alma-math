@@ -1,0 +1,13 @@
+$body-bg: #9d58b7;
+$input-btn-padding-y: .65rem !default;
+$input-padding-y: $input-btn-padding-y !default;
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+.card, .form-control{
+    border-color: darken($body-bg, 15%);
+}
+
+.card{
+    background-color: #fef5fa;
+}
