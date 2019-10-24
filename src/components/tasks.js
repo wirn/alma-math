@@ -141,7 +141,7 @@ class Tasks extends Component {
             <h1 className="my-5 text-center text-uppercase">Almas matteland</h1>
 
             <div className="row">
-                {this.state.tasks.map((task) => <div className="col-sm-4 mb-4" key={task.id}>
+                {this.state.tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
                     <Task
                         id={task.id}
                         question={task.question}
