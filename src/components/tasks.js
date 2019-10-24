@@ -102,7 +102,7 @@ class Tasks extends Component {
                 return require('../assets/images/correct-njae-lg.png');
             case 3:
             default:
-                return require('../assets/images/correct-njae-lg.png');
+                return require('../assets/images/wrong-jakob.png');
         }
     }
 
@@ -171,32 +171,7 @@ class Tasks extends Component {
                             </button>
                         </div>
                         <div className="modal-body text-center">
-
-
                             <img className="img-fluid mb-3" src={this.getGradeImage()} alt="bravo" />
-                            {/* {
-                                this.getGrade() === 5 ?
-                                    <div>
-                                        <img className="img-fluid mb-3" src={require('../assets/images/correct-jakob-lg.png')} alt="bravo" />
-                                        <p>Alla rätt</p>
-                                    </div> : null
-                            }
-
-                            {
-                                this.getGrade() === 4 || this.getGrade() === 3 || this.getGrade() === 2 ?
-                                    <div>
-                                        <img className="img-fluid mb-3" src={require('../assets/images/correct-njae-lg.png')} alt="bravo" />
-                                        <p>{this.state.nrCorrect} rätt av 9</p>
-                                    </div> : null
-                            }
-                            {
-                                this.getGrade() === 1 ?
-                                    <div>
-                                        <img className="img-fluid mb-3" src={require('../assets/images/wrong-jakob.png')} alt="bravo" />
-                                        <p>{this.state.nrCorrect} rätt av 9</p>
-                                    </div> : null
-                            } */}
-
                         </div>
                     </div>
                 </div>
