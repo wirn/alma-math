@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 const Task = (props) => {
 
     const style = {
-        borderColor: props.isCorrect === false && props.answered && props.isCorrected ? 'red' : null
+        borderColor: props.isCorrect === false && props.answered && props.isCorrected ? 'red' : null,
+        borderWidth: '2px'
     }
 
     return <div className="card" style={style}>
