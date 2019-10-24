@@ -5,6 +5,8 @@
     width: 75%;
     @include media-breakpoint-only(md) {
       width: 100%;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
     }
   }
 }
