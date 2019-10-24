@@ -1,0 +1,10 @@
+/// <reference path="../node_modules/bootstrap/scss/mixins/_breakpoints.scss" />
+
+.card-task {
+  .form-control {
+    width: 75%;
+    @include media-breakpoint-only(md) {
+      width: 100%;
+    }
+  }
+}

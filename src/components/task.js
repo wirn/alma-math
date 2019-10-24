@@ -7,7 +7,7 @@ const Task = (props) => {
         borderWidth: '2px'
     }
 
-    return <div className="card" style={style}>
+    return <div className="card card-task" style={style}>
         <div className="card-body">
             <div className="row">
                 <div className="col-6">
