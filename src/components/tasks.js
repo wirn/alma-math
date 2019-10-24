@@ -155,9 +155,9 @@ class Tasks extends Component {
                 )}
             </div>
 
-            <button className="btn btn-primary" onClick={(event) => this.correct(event)}>Rätta</button>
+            <button className="btn btn-primary mb-3" onClick={(event) => this.correct(event)}>Rätta</button>
 
-            <h2 className="h4" style={{ 'fontStyle': 'italic' }}>svarat på {this.state.nrAnswered} av {this.nrOfQuestions}</h2>
+            <h2 className="h6" style={{ 'fontStyle': 'italic' }}>svarat på {this.state.nrAnswered} av {this.nrOfQuestions}</h2>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg" role="document">

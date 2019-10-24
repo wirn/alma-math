@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/538e04f0-ba69-429a-87d1-c0db1507186f/resourceGroups/leka-runt/providers/Microsoft.Web/sites/alma-math",
+    "appService.deploySubpath": "public"
+}
