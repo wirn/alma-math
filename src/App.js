@@ -5,7 +5,7 @@ import Tasks from './components/tasks';
 function App() {
   return (
     <div>
-      <div className="container my-5">
+      <div className="container container-main">
         <div className="row">
           <div className="col-12">
             <Tasks />
