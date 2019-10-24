@@ -14,7 +14,7 @@ const Task = (props) => {
                     <div className="form-group" >
                         <b><label>{props.question}</label></b>
                         <input
-                            className="form-control text-center w-75"
+                            className="form-control text-center"
                             placeholder="svar"
                             type="number"
                             maxLength="2"
