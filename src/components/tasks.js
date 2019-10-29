@@ -95,15 +95,13 @@ class Tasks extends Component {
 
     getGradeImage() {
         const grade = this.getGrade(this.state.procentageCorrect);
-        switch (grade) {
-            case 5:
-                return require('../assets/images/correct-jakob-lg.png');
-            case 4 || 3 || 2:
-                return require('../assets/images/correct-njae-lg.png');
-            case 3:
-            default:
-                return require('../assets/images/wrong-jakob.png');
+        let image = require('../assets/images/wrong-jakob.png');
+        if (grade === 5) {
+            image = require('../assets/images/correct-jakob-lg.png');
+        } else if (grade === 4 || grade === 3 || grade === 2) {
+            image = require('../assets/images/correct-njae-lg.png');
         }
+        return image;
     }
 
     correct() {
@@ -130,10 +128,10 @@ class Tasks extends Component {
     }
 
 
-    componentDidUpdate() {
-        console.log('componentDidUpdate');
-        console.log('componentDidUpdate', this.state.tasks);
-    }
+    // componentDidUpdate() {
+    //     console.log('componentDidUpdate');
+    //     console.log('componentDidUpdate', this.state.tasks);
+    // }
 
     render() {
 
