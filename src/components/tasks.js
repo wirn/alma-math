@@ -4,7 +4,7 @@ import getTask from '../helpers';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-function Tasks() {
+function Tasks(props) {
 
     const getTasks = () => {
         let tasks = [];
@@ -114,7 +114,10 @@ function Tasks() {
     }
 
     return <div>
-        <h1 className="my-5 text-center text-uppercase">Almas matteland</h1>
+        <div className="my-5 text-center text-uppercase">
+            <h1>Almas matteland</h1>
+            <h5>Nivå {props.level}</h5>
+        </div>
 
         <div className="row">
             {tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
