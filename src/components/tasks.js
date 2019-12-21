@@ -1,29 +1,14 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Task from './task';
 import getTask from './helpers';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
-class Tasks extends Component {
+function Tasks() {
 
-    constructor() {
-        super();
-        this.correct = this.correct.bind(this);
-    }
-
-    nrOfQuestions = 9;
-
-    state = {
-        tasks: this.getTasks(),
-        nrCorrect: 0,
-        procentageCorrect: 0,
-        nrAnswered: 0,
-        isCorrected: false
-    }
-
-    getTasks() {
+    const getTasks = () => {
         let tasks = [];
-        for (let i = 0; i < this.nrOfQuestions; i++) {
+        for (let i = 0; i < nrOfQuestions; i++) {
             const t = getTask();
             t.id = i;
             t.answered = false;
@@ -32,43 +17,46 @@ class Tasks extends Component {
         return tasks;
     }
 
-    userAnswered = (event, id) => {
+    const [nrCorrect, setNrCorrect] = useState(0);
+    const [procentageCorrect, setProcentageCorrect] = useState(0);
+    const [nrAnswered, setNrAnswered] = useState(0);
+    const [nrOfQuestions] = useState(9);
+    const [isCorrected, setIsCorrected] = useState(false);
+    const [tasks, setTasks] = useState(getTasks());
+
+    const userAnswered = (event, id) => {
         if (event.target.value && event.target.value !== '') {
 
-            let newTasks = [...this.state.tasks];
+            let newTasks = [...tasks];
             const currentTask = newTasks.find(x => x.id === id);
             currentTask.userAnswer = parseInt(event.target.value, 10);
             currentTask.answered = true;
 
             currentTask.isCorrect = currentTask.userAnswer === currentTask.answer
 
-            this.setState({
-                tasks: newTasks
-            })
+            setTasks(newTasks);
 
             let nrAnswered = 0;
-            this.state.tasks.forEach((task) => {
+            tasks.forEach((task) => {
                 if (task.answered === true) {
                     nrAnswered++;
                 }
             });
 
-            this.setState({
-                nrAnswered: nrAnswered
-            })
+            setNrAnswered(nrAnswered);
         }
     }
 
-    getGrade() {
-        if (this.state.procentageCorrect >= 100) {
+    const getGrade = () => {
+        if (procentageCorrect >= 100) {
             return 5
-        } else if (this.state.procentageCorrect >= 90) {
+        } else if (procentageCorrect >= 90) {
             return 4
         }
-        else if (this.state.procentageCorrect >= 80) {
+        else if (procentageCorrect >= 80) {
             return 3
         }
-        else if (this.state.procentageCorrect >= 70) {
+        else if (procentageCorrect >= 70) {
             return 2
         }
         else {
@@ -76,8 +64,8 @@ class Tasks extends Component {
         }
     }
 
-    getGradeText() {
-        const grade = this.getGrade(this.state.procentageCorrect);
+    const getGradeText = () => {
+        const grade = getGrade(procentageCorrect);
 
         switch (grade) {
             case 5:
@@ -93,8 +81,8 @@ class Tasks extends Component {
         }
     }
 
-    getGradeImage() {
-        const grade = this.getGrade(this.state.procentageCorrect);
+    const getGradeImage = () => {
+        const grade = getGrade(procentageCorrect);
         let image = require('../assets/images/wrong-jakob.png');
         if (grade === 5) {
             image = require('../assets/images/correct-jakob-lg.png');
@@ -104,79 +92,68 @@ class Tasks extends Component {
         return image;
     }
 
-    correct() {
+    const correct = () => {
 
-        this.setState({ isCorrected: true });
+        setIsCorrected(true);
 
         let nrCorrectAnswers = 0;
-        this.state.tasks.forEach((task) => {
+        tasks.forEach((task) => {
             if (task.isCorrect === true) {
                 nrCorrectAnswers++;
             }
         });
 
-        const procentageCorrect = (nrCorrectAnswers / this.nrOfQuestions) * 100;
+        const procentageCorrect = (nrCorrectAnswers / nrOfQuestions) * 100;
 
-        this.setState({
-            nrCorrect: nrCorrectAnswers,
-            procentageCorrect: procentageCorrect,
-        })
+        setNrCorrect(nrCorrect);
+        setProcentageCorrect(procentageCorrect);
 
-        if (this.state.nrAnswered === this.nrOfQuestions) {
+        if (nrAnswered === nrOfQuestions) {
             $('#exampleModal').modal();
         }
     }
 
+    return <div>
+        <h1 className="my-5 text-center text-uppercase">Almas matteland</h1>
 
-    // componentDidUpdate() {
-    //     console.log('componentDidUpdate');
-    //     console.log('componentDidUpdate', this.state.tasks);
-    // }
-
-    render() {
-
-        return <div>
-            <h1 className="my-5 text-center text-uppercase">Almas matteland</h1>
-
-            <div className="row">
-                {this.state.tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
-                    <Task
-                        id={task.id}
-                        question={task.question}
-                        answer={task.answer}
-                        blur={this.userAnswered}
-                        isCorrect={task.isCorrect}
-                        answered={task.answered}
-                        isCorrected={this.state.isCorrected}
-                    />
-                </div>
-                )}
+        <div className="row">
+            {tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
+                <Task
+                    id={task.id}
+                    question={task.question}
+                    answer={task.answer}
+                    blur={userAnswered}
+                    isCorrect={task.isCorrect}
+                    answered={task.answered}
+                    isCorrected={isCorrected}
+                />
             </div>
+            )}
+        </div>
 
-            <button className="btn btn-primary mb-3" onClick={(event) => this.correct(event)}>Rätta</button>
+        <button className="btn btn-primary mb-3" onClick={(event) => correct(event)}>Rätta</button>
 
-            <h2 className="h6" style={{ 'fontStyle': 'italic' }}>svarat på {this.state.nrAnswered} av {this.nrOfQuestions}</h2>
+        <h2 className="h6" style={{ 'fontStyle': 'italic' }}>svarat på {nrAnswered} av {nrOfQuestions}</h2>
 
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-lg" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h4 className="modal-title text-uppercase" id="exampleModalLabel">
-                                {this.getGradeText()}
-                            </h4>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body text-center">
-                            <img className="img-fluid mb-3" src={this.getGradeImage()} alt="bravo" />
-                        </div>
+        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-lg" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h4 className="modal-title text-uppercase" id="exampleModalLabel">
+                            {getGradeText()}
+                        </h4>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body text-center">
+                        <img className="img-fluid mb-3" src={getGradeImage()} alt="bravo" />
                     </div>
                 </div>
             </div>
+        </div>
 
-        </div >
-    }
+    </div >
 }
 
 export default Tasks;
