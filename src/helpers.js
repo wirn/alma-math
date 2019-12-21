@@ -1,4 +1,4 @@
-import Assignment from '../classes/Assignment';
+import Assignment from './classes/Assignment';
 
 const getCountMethos = () => {
     const rnd = Math.random();

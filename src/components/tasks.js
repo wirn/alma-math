@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Task from './task';
-import getTask from './helpers';
+import getTask from '../helpers';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
