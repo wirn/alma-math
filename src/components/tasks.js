@@ -6,6 +6,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function Tasks(props) {
 
+    console.log(props.match.params.level);
+
     const getTasks = (level) => {
         let tasks = [];
         for (let i = 0; i < nrOfQuestions; i++) {
@@ -17,12 +19,14 @@ function Tasks(props) {
         return tasks;
     }
 
+    const level = parseInt(props.match.params.level, 10);
     const [nrCorrect, setNrCorrect] = useState(0);
     const [procentageCorrect, setProcentageCorrect] = useState(0);
     const [nrAnswered, setNrAnswered] = useState(0);
     const [nrOfQuestions] = useState(9);
     const [isCorrected, setIsCorrected] = useState(false);
-    const [tasks, setTasks] = useState(getTasks(props.level));
+    const [tasks, setTasks] = useState(getTasks(level));
+
 
     const userAnswered = (event, id) => {
         if (event.target.value && event.target.value !== '') {
@@ -114,9 +118,10 @@ function Tasks(props) {
     }
 
     return <div>
+
         <div className="my-5 text-center text-uppercase">
             <h1>Almas matteland</h1>
-            <h5>Nivå {props.level}</h5>
+            <h5>Nivå {level}</h5>
         </div>
 
         <div className="row">
