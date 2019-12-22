@@ -6,10 +6,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function Tasks(props) {
 
-    const getTasks = () => {
+    const getTasks = (level) => {
         let tasks = [];
         for (let i = 0; i < nrOfQuestions; i++) {
-            const t = getTask();
+            const t = getTask(level);
             t.id = i;
             t.answered = false;
             tasks.push(t);
@@ -22,7 +22,7 @@ function Tasks(props) {
     const [nrAnswered, setNrAnswered] = useState(0);
     const [nrOfQuestions] = useState(9);
     const [isCorrected, setIsCorrected] = useState(false);
-    const [tasks, setTasks] = useState(getTasks());
+    const [tasks, setTasks] = useState(getTasks(props.level));
 
     const userAnswered = (event, id) => {
         if (event.target.value && event.target.value !== '') {

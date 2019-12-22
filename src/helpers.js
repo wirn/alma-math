@@ -13,7 +13,13 @@ const getCountMethos = () => {
     }
 }
 
-export default function getTask() {
+export default function getTask(level) {
+
+    if (level !== 1 && level !== 2 && level !== 3) {
+        console.error('level can only be 1, 2 or 3');
+        return;
+    }
+    console.log('level', level);
 
     const countMethod = getCountMethos();
 
@@ -21,11 +27,30 @@ export default function getTask() {
         case 'addition':
             let assignmentAdd = null;
 
+            let rndAddOne = 0, max = 0, rndAddTwo = 0;
+
             if (Math.random() > .6) {
 
-                const rndAddOne = Math.floor(Math.random() * Math.floor(10)) * 10;
-                const max = 100 - rndAddOne;
-                const rndAddTwo = Math.floor(Math.random() * Math.floor(max / 10)) * 10;
+                switch (level) {
+                    case 1: {
+                        rndAddOne = Math.floor(Math.random() * Math.floor(10)) * 5;
+                        max = 50 - rndAddOne;
+                        rndAddTwo = Math.floor(Math.random() * Math.floor(max / 10)) * 5;
+                        break;
+                    }
+                    case 2: {
+                        rndAddOne = Math.floor(Math.random() * Math.floor(10)) * 10;
+                        max = 100 - rndAddOne;
+                        rndAddTwo = Math.floor(Math.random() * Math.floor(max / 10)) * 10;
+                        break;
+                    }
+                    case 3: {
+                        rndAddOne = Math.floor(Math.random() * Math.floor(10)) * 15;
+                        max = 150 - rndAddOne;
+                        rndAddTwo = Math.floor(Math.random() * Math.floor(max / 10)) * 15;
+                        break;
+                    }
+                }
 
                 assignmentAdd = new Assignment(
                     `${rndAddOne} + ${rndAddTwo}`,
@@ -35,12 +60,26 @@ export default function getTask() {
                     null,
                     ''
                 );
-
-                //console.log('+', 'rndAddOne ', rndAddOne, 'rndAddTwo ', rndAddTwo, 'assignmentAdd ', assignmentAdd);
-
             } else {
-                const rndAddOne = parseInt((Math.random() * 15).toFixed(0));
-                const rndAddTwo = parseInt((Math.random() * 15).toFixed(0));
+                let rndAddOne = 0, rndAddTwo = 0;
+
+                switch (level) {
+                    case 1: {
+                        rndAddOne = parseInt((Math.random() * 10).toFixed(0));
+                        rndAddTwo = parseInt((Math.random() * 10).toFixed(0));
+                        break;
+                    }
+                    case 2: {
+                        rndAddOne = parseInt((Math.random() * 15).toFixed(0));
+                        rndAddTwo = parseInt((Math.random() * 15).toFixed(0));
+                        break;
+                    }
+                    case 3: {
+                        rndAddOne = parseInt((Math.random() * 20).toFixed(0));
+                        rndAddTwo = parseInt((Math.random() * 20).toFixed(0));
+                        break;
+                    }
+                }
 
                 assignmentAdd = new Assignment(
                     `${rndAddOne} + ${rndAddTwo}`,
@@ -55,13 +94,44 @@ export default function getTask() {
             return assignmentAdd;
 
         case 'substraction':
-            const rndSubOne = parseInt((Math.random() * 14).toFixed(0));
-            const rndsubTwo = parseInt((Math.random() * 14).toFixed(0));
+            let multip = 0;
+            switch (level) {
+                case 1: {
+                    multip = 10;
+                    break;
+                }
+                case 2: {
+                    multip = 14;
+                    break;
+                }
+                case 3: {
+                    multip = 19;
+                    break;
+                }
+            }
+            const rndSubOne = parseInt((Math.random() * multip).toFixed(0));
+            const rndsubTwo = parseInt((Math.random() * multip).toFixed(0));
 
             let assignmentSub = null;
             if (Math.random() > .6) {
-                const rndSubOne = Math.floor(Math.random() * Math.floor(10)) * 10;
-                const rndASubTwo = Math.floor(Math.random() * Math.floor(rndSubOne / 10)) * 10;
+                let multiplier = 0;
+                switch (level) {
+                    case 1: {
+                        multiplier = 5;
+                        break;
+                    }
+                    case 2: {
+                        multiplier = 10;
+                        break;
+                    }
+                    case 3: {
+                        multiplier = 15;
+                        break;
+                    }
+                }
+
+                const rndSubOne = Math.floor(Math.random() * Math.floor(10)) * multiplier;
+                const rndASubTwo = Math.floor(Math.random() * Math.floor(rndSubOne / 10)) * multiplier;
 
                 assignmentSub = new Assignment(
                     `${rndSubOne} - ${rndASubTwo}`,
@@ -98,7 +168,23 @@ export default function getTask() {
             return assignmentSub;
 
         case 'halfDouble':
-            let rndhalfDouble = parseInt((Math.random() * 10).toFixed(0));
+            let multiplier = 0;
+            switch (level) {
+                case 1: {
+                    multiplier = 5;
+                    break;
+                }
+                case 2: {
+                    multiplier = 10;
+                    break;
+                }
+                case 3: {
+                    multiplier = 15;
+                    break;
+                }
+            }
+
+            let rndhalfDouble = parseInt((Math.random() * multiplier).toFixed(0));
 
             let assignmentHalfDouble = null;
 
@@ -126,8 +212,26 @@ export default function getTask() {
             return assignmentHalfDouble;
 
         default:
-            const rndMultOne = parseInt((Math.random() * 4).toFixed(0));
-            const rndMultTwo = parseInt((Math.random() * 5).toFixed(0));
+
+            let multiplierTimes = 0;
+            switch (level) {
+                case 1: {
+                    multiplierTimes = 3;
+                    break;
+                }
+                case 2: {
+                    multiplierTimes = 5;
+                    break;
+                }
+                case 3: {
+                    multiplierTimes = 7;
+                    break;
+                }
+            }
+
+
+            const rndMultOne = parseInt((Math.random() * multiplierTimes).toFixed(0));
+            const rndMultTwo = parseInt((Math.random() * multiplierTimes).toFixed(0));
 
             const assignmentMult = new Assignment(`${rndMultOne} * ${rndMultTwo}`, rndMultOne * rndMultTwo, false, null, '');
             return assignmentMult;

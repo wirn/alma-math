@@ -2,23 +2,6 @@
 import './App.css';
 import Tasks from './components/tasks';
 
-// function App() {
-//   return (
-//     <div>
-//       <div className="container container-main">
-//         <div className="row">
-//           <div className="col-12">
-//             <Tasks />
-//           </div>
-//         </div>
-//       </div>
-
-//     </div>
-//   );
-// }
-
-// export default App;
-
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -46,6 +29,9 @@ export default function App() {
                 <Link to="/levelTwo" className="nav-link">Nivå 2</Link>
               </li>
               <li className="nav-item">
+                <Link to="/levelThree" className="nav-link">Nivå 3</Link>
+              </li>
+              <li className="nav-item">
                 <Link to="/about" className="nav-link">Tjosan</Link>
               </li>
             </ul>
@@ -55,6 +41,9 @@ export default function App() {
         <Switch>
           <Route path="/levelTwo">
             <Tasks level={2} />
+          </Route>
+          <Route path="/levelThree">
+            <Tasks level={3} />
           </Route>
           <Route path="/about">
             <About />
