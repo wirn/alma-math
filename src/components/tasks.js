@@ -117,7 +117,7 @@ function Tasks(props) {
         }
     }
 
-    return <div>
+    return <div className="container">
 
         <div className="my-5 text-center text-uppercase">
             <h1>Almas matteland</h1>
