@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { Link } from 'react-router-dom';
 import Task from './Task';
 import getTask from '../helpers';
 import { UserContext } from '../context/UserContext';
-import $ from 'jquery';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function Tasks(props) {
 
-    console.log(props.match.params.level);
+    //console.log(props.match.params.level);
 
     const getTasks = (level) => {
         let tasks = [];
@@ -26,8 +27,8 @@ function Tasks(props) {
     const [nrAnswered, setNrAnswered] = useState(0);
     const [nrOfQuestions] = useState(9);
     const [isCorrected, setIsCorrected] = useState(false);
+    const [isAllCorrect, setIsAllCorrect] = useState(false);
     const [tasks, setTasks] = useState(getTasks(level));
-
 
     const userAnswered = (event, id) => {
         if (event.target.value && event.target.value !== '') {
@@ -99,7 +100,7 @@ function Tasks(props) {
 
     const correct = (event, currentLevel, updateCompleted) => {
 
-        console.log(event, currentLevel, updateCompleted);
+        //console.log(event, currentLevel, updateCompleted);
 
         setIsCorrected(true);
 
@@ -112,7 +113,10 @@ function Tasks(props) {
 
         const procentageCorrect = (nrCorrectAnswers / nrOfQuestions) * 100;
 
-        if (nrCorrectAnswers === nrOfQuestions) {
+        setIsAllCorrect(nrCorrectAnswers === nrOfQuestions);
+
+        debugger;
+        if (isAllCorrect) {
             updateCompleted(currentLevel)
         }
 
@@ -122,6 +126,14 @@ function Tasks(props) {
         if (nrAnswered === nrOfQuestions) {
             $('#exampleModal').modal();
         }
+    }
+
+    const getNextLevel = () => {
+        if (level === 1)
+            return '/tasks/2';
+        if (level === 2)
+            return '/tasks/3';
+        return '';
     }
 
     return (
@@ -162,6 +174,15 @@ function Tasks(props) {
                                 <div className="modal-body text-center">
                                     <img className="img-fluid mb-3" src={getGradeImage()} alt="bravo" />
                                 </div>
+
+                                {
+                                    isAllCorrect === true && level < 3 &&
+                                    <div className="modal-footer">
+                                        <Link to={getNextLevel} className="btn btn-primary btn-lg ml-auto mr-2">
+                                            Till nästa nivå
+                                    </Link>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
