@@ -13,9 +13,16 @@ class UserContextProvider extends Component {
             3: 0
         }
     }
-    changeName = (newName) => {
+    setName = (newName) => {
         this.setState({
             name: newName
+        }, () => {
+            this.updateStateInLocalStorage();
+        });
+    }
+    setCurrentLevel = (newLevel) => {
+        this.setState({
+            currentLevel: newLevel
         }, () => {
             this.updateStateInLocalStorage();
         });
@@ -33,7 +40,7 @@ class UserContextProvider extends Component {
 
     render() {
         return (
-            <UserContext.Provider value={{ ...this.state, changeName: this.changeName }}>
+            <UserContext.Provider value={{ ...this.state, setName: this.setName, setCurrentLevel: this.setCurrentLevel }}>
                 {this.props.children}
             </UserContext.Provider>
         );

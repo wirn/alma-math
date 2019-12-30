@@ -5,7 +5,7 @@ const NameChanger = () => {
     return (
         <UserContext.Consumer>
             {(context) => {
-                const { name, changeName } = context;
+                const { name, setName } = context;
 
                 return (
                     <div className="container my-5" >
@@ -15,7 +15,7 @@ const NameChanger = () => {
                                 className="form-control d-block mb-2"
                                 value={name}
                                 placeholder={name}
-                                onChange={(event) => changeName(event.currentTarget.value)}
+                                onChange={(event) => setName(event.currentTarget.value)}
                             ></input>
                         </div>
                     </div>

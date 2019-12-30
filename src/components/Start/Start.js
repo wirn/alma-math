@@ -1,17 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NameChanger from './NameChanger';
 import LevelLinks from './LevelLinks';
+import { UserContext } from '../../context/UserContext';
 
 const Start = (history, location, match) => {
 
-    console.log(history, location, match);
+    //console.log(history, location, match);
 
     return (
-        <div className="container my-5">
-            <NameChanger />
-            <LevelLinks />
-        </div>
+        <UserContext.Consumer>
+            {(context) => {
+                const { name, currentLevel } = context;
+                return (
+                    <div>
+                        <NameChanger />
+
+                        {name !== '' &&
+                            <LevelLinks />
+                        }
+
+                    </div>
+                )
+            }}
+        </UserContext.Consumer>
     );
 };
 

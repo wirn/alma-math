@@ -118,12 +118,6 @@ function Tasks(props) {
     }
 
     return <div className="container">
-
-        <div className="my-5 text-center text-uppercase">
-            <h1>Almas matteland</h1>
-            <h5>Nivå {level}</h5>
-        </div>
-
         <div className="row">
             {tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
                 <Task
