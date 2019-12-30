@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Task from './Task';
 import getTask from '../helpers';
+import { UserContext } from '../context/UserContext';
 import $ from 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -96,7 +97,9 @@ function Tasks(props) {
         return image;
     }
 
-    const correct = () => {
+    const correct = (event, currentLevel, updateCompleted) => {
+
+        console.log(event, currentLevel, updateCompleted);
 
         setIsCorrected(true);
 
@@ -109,6 +112,10 @@ function Tasks(props) {
 
         const procentageCorrect = (nrCorrectAnswers / nrOfQuestions) * 100;
 
+        if (nrCorrectAnswers === nrOfQuestions) {
+            updateCompleted(currentLevel)
+        }
+
         setNrCorrect(nrCorrect);
         setProcentageCorrect(procentageCorrect);
 
@@ -117,45 +124,53 @@ function Tasks(props) {
         }
     }
 
-    return <div className="container">
-        <div className="row">
-            {tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
-                <Task
-                    id={task.id}
-                    question={task.question}
-                    answer={task.answer}
-                    blur={userAnswered}
-                    isCorrect={task.isCorrect}
-                    answered={task.answered}
-                    isCorrected={isCorrected}
-                />
-            </div>
-            )}
-        </div>
-
-        <button className="btn btn-primary mb-3" onClick={(event) => correct(event)}>Rätta</button>
-
-        <h2 className="h6" style={{ 'fontStyle': 'italic' }}>svarat på {nrAnswered} av {nrOfQuestions}</h2>
-
-        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="modal-title text-uppercase" id="exampleModalLabel">
-                            {getGradeText()}
-                        </h4>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    return (
+        <UserContext.Consumer>
+            {(context) => {
+                const { currentLevel, updateCompleted } = context;
+                return <div className="container">
+                    <div className="row">
+                        {tasks.map((task) => <div className="col-md-4 mb-4" key={task.id}>
+                            <Task
+                                id={task.id}
+                                question={task.question}
+                                answer={task.answer}
+                                blur={userAnswered}
+                                isCorrect={task.isCorrect}
+                                answered={task.answered}
+                                isCorrected={isCorrected}
+                            />
+                        </div>
+                        )}
                     </div>
-                    <div className="modal-body text-center">
-                        <img className="img-fluid mb-3" src={getGradeImage()} alt="bravo" />
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div >
+                    <button className="btn btn-primary mb-3" onClick={(event) => correct(event, currentLevel, updateCompleted)}>Rätta</button>
+
+                    <h2 className="h6" style={{ 'fontStyle': 'italic' }}>svarat på {nrAnswered} av {nrOfQuestions}</h2>
+
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog modal-lg" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h4 className="modal-title text-uppercase" id="exampleModalLabel">
+                                        {getGradeText()}
+                                    </h4>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body text-center">
+                                    <img className="img-fluid mb-3" src={getGradeImage()} alt="bravo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div >
+            }
+            }
+        </UserContext.Consumer>
+    )
 }
 
 export default Tasks;
