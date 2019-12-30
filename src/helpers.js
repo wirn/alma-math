@@ -19,7 +19,6 @@ export default function getTask(level) {
         console.error('level can only be 1, 2 or 3');
         return;
     }
-    console.log('level', level);
 
     const countMethod = getCountMethos();
 

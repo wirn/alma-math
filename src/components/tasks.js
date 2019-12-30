@@ -115,7 +115,6 @@ function Tasks(props) {
 
         setIsAllCorrect(nrCorrectAnswers === nrOfQuestions);
 
-        debugger;
         if (isAllCorrect) {
             updateCompleted(currentLevel)
         }

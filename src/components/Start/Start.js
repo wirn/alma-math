@@ -10,7 +10,7 @@ const Start = (history, location, match) => {
     return (
         <UserContext.Consumer>
             {(context) => {
-                const { name, currentLevel } = context;
+                const { name } = context;
                 return (
                     <div>
                         <NameChanger />

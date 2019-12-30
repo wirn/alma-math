@@ -18,23 +18,16 @@ export default function App() {
           {(context) => {
             const { name, currentLevel, levelCompleted } = context;
 
-            console.log('ett', levelCompleted.one);
-            console.log('två', levelCompleted.two);
-            console.log('tre', levelCompleted.three);
-            // const lC = c.map((x) =>
-            //   <li>{x}</li>
-            // );
-
             return (
               <div className="container my-5">
                 <div className="text-center">
                   <h1>Almas matteland</h1>
 
-                  {Array.from(Array(levelCompleted.one), () => <img src={bronce} alt="bronce" />)}
+                  {Array.from(Array(levelCompleted.one), (a, i) => <img src={bronce} alt="bronce" key={i} />)}
 
-                  {Array.from(Array(levelCompleted.two), () => <img src={silver} alt="silver" />)}
+                  {Array.from(Array(levelCompleted.two), (a, i) => <img src={silver} alt="silver" key={i} />)}
 
-                  {Array.from(Array(levelCompleted.three), () => <img src={gold} alt="gold" />)}
+                  {Array.from(Array(levelCompleted.three), (a, i) => <img src={gold} alt="gold" key={i} />)}
 
                   <h2 className="mb-4">{name}
                     {currentLevel !== 0 &&
